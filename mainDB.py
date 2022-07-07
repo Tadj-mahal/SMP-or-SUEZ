@@ -25,6 +25,10 @@ class edges: #edges = ребра
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute(f"insert into edges (edge_type, edge_id, ice_condition, length, incident_nodes, max_throughput, tariff) values ('{edge_type}', '{edge_id}', '{ice_condition}', '{length}', '{incident_nodes}', '{max_throughput}', '{tariff}')")
+            cur.execute(f"""SELECT `AUTO_INCREMENT`
+                            FROM  INFORMATION_SCHEMA.TABLES
+                            WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
+                            AND   TABLE_NAME   = 'edges';""")
             indexes.edges[edge_id] = self
 
     def update(self):
