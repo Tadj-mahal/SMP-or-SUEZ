@@ -57,6 +57,11 @@ class ship: #ship = корабль
             indexes.ship[ship_id] = self
     def update(self):
         #обновление поля из таблицы
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute("""UPDATE ship
+            SET ship = ...
+            WHERE condition;""")
 
 class consignment: #consignment = партия груза
     def __init__(self, cargo_id = None, size = 1, node_destination_id = 1, ship_immediately = True, type_refer = 1, id_refer = 1, contracted = True):
@@ -78,6 +83,11 @@ class consignment: #consignment = партия груза
             indexes.consignment[cargo_id] = self
     def update(self):
         #обновление поля из таблицы
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute("""UPDATE consignment
+            SET cargo_id = ...
+            WHERE condition;""")
 
 class icebreaker: #icebreaker = ледокол
     def __init__(self, icebreaker_id = None, edge_position = 0, prepare_caravan = True, edge_id = 0, port_id = 0, node_destination_id = 1, speed = 40,shipsin_caravan = True):
@@ -99,6 +109,11 @@ class icebreaker: #icebreaker = ледокол
             indexes.icebreaker[icebreaker_id] = self
     def update(self):
         #обновление поля из таблицы
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute("""UPDATE icebreaker
+            SET icebreaker_id = ...
+            WHERE condition;""")
 
 class node: #node = узел
     def __init__(self, node_id = None):
@@ -114,6 +129,11 @@ class node: #node = узел
             indexes.node[node_id] = self
     def update(self):
         #обновление поля из таблицы
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute("""UPDATE node
+            SET node_id = ...
+            WHERE condition;""")
 
 import sqlite3 as sq
 
