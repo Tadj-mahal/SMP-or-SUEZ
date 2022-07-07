@@ -30,7 +30,7 @@ class edges: #edges = ребра
         #обновление поля из таблицы
 
 class ship: #ship = корабль
-    def __init__(self, ship_id = None, edge_position = 1,edge_id = -1, port_id = 1, in_port = True, icebreaker_id = 1, max_capacity = 1, node_id = 1, cargo_type = "", caravan_condition = True):
+    def __init__(self, ship_id = None, edge_position = 1, edge_id = -1, port_id = 1, in_port = True, icebreaker_id = 1, max_capacity = 1, node_id = 1, cargo_type = "", caravan_condition = True):
         self.ship_id = ship_id
         self.edge_position = edge_position
         self.edge_id = edge_id
