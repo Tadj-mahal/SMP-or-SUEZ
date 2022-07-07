@@ -2,9 +2,10 @@ import sqlite3 as sq
 
 coordinates = "0.000000, 0.000000"
 class indexes:
-    ed = dict()
-    sh = dict()
-    #и т.д.
+    edges = dict()
+    ship = dict()
+    consig = dict()
+    
 class edges: #edges = ребра
     def __init__(self, edge_type = "sea"):
         self.edge_type = edge_type
