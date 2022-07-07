@@ -7,44 +7,45 @@ class indexes:
     consig = dict()
     icebreak = dict()
     node = dict()
-
 class edges: #edges = ребра
-    def __init__(self, edge_type = "sea"):
+    def __init__(self, edge_type = "sea", edge_id = 0, ice_condition = 1, length = 1, incident_nodes = "*id_begin_node*_*id_end_node*", max_throughput = 1, tariff = 1500):
         self.edge_type = edge_type
-        self.edge_id = 0
-        self.ice_condition = 1
-        self.length = 1
-        self.incident_nodes = "*id_begin_node*_*id_end_node*"
-        self.max_throughput = 1
-        self.tariff = 1500
+        self.edge_id = edge_id
+        self.ice_condition = ice_condition
+        self.length = length
+        self.incident_nodes = incident_nodes
+        self.max_throughput = max_throughput
+        self.tariff = tariff
+
     def create(self):
         #вытаскиваем поля из таблицы с помощью select и increment counter
     def update(self):
         #обновление поля из таблицы
+        
 class ship: #ship = корабль
-    def __init__(self):
-        self.ship_id = -1
-        self.edge_position = 1
-        self.edge_id = -1
-        self.port_id = 1
-        self.in_port = True
-        self.icebreaker_id = 1
-        self.max_capacity = 1
-        self.node_id = 1
+    def __init__(self, ship_id = -1, edge_position = 1,edge_id = -1, port_id = 1, in_port = True, icebreaker_id = 1, max_capacity = 1, node_id = 1, cargo_type = "", caravan_condition = True):
+        self.ship_id = ship_id
+        self.edge_position = edge_position
+        self.edge_id = edge_id
+        self.port_id = port_id
+        self.in_port = in_port
+        self.icebreaker_id = icebreaker_id
+        self.max_capacity = max_capacity
+        self.node_id = node_id
         self.coordinates = coordinates
-        self.cargo_type = ""
-        self.caravan_condition = True
+        self.cargo_type = cargo_type
+        self.caravan_condition = caravan_condition
 
 class consignment: #consignment = партия груза
-    def __init__(self):
-        self.cargo_id = -1
-        self.size = 1
-        self.node_destination_id = 1
-        self.ship_immediately = True
-        self.type_refer = 1
-        self.id_refer = 1
+    def __init__(self, cargo_id = -1, size = 1, node_destination_id = 1, ship_immediately = True, type_refer = 1, id_refer = 1, contracted = True):
+        self.cargo_id = cargo_id
+        self.size = size
+        self.node_destination_id = node_destination_id
+        self.ship_immediately = ship_immediately
+        self.type_refer = type_refer
+        self.id_refer = id_refer
         self.coordinates = coordinates
-        self.contracted = True
+        self.contracted = contracted
 
 class icebreaker: #icebreaker = ледокол
     def __init__(self, icebreaker_id = 0, edge_position = 0, prepare_caravan = True, edge_id = 0, port_id = 0, node_destination_id = 1, speed = 40,shipsin_caravan = True):
