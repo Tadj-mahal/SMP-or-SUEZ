@@ -126,7 +126,7 @@ with sq.connect("Ships_Icebreakers.db") as con:
     cur.execute("DROP TABLE IF EXISTS edges")
     cur.execute("""CREATE TABLE IF NOT EXISTS edges(
         edge_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        ice_condition INTEGER,
+        ice_condition INTEGER DEFAULT 0,
         edge_type TEXT,
         length INTEGER,
         incident_nodes TEXT,
@@ -157,7 +157,6 @@ with sq.connect("Ships_Icebreakers.db") as con:
     caravan_condition BOOLEAN
     )""")
 
-    cur.execute("DROP TABLE IF EXISTS consignment")
     # добавь столбцы
     # id груза (INT PRIMARY KEY autoincrement)
     # объем (INT),
@@ -166,6 +165,7 @@ with sq.connect("Ships_Icebreakers.db") as con:
     # тип принадлежности (INT 1 - узел, 2 - ребро, 3 - кораблю)
     # id принадлежности (INT id корабля, ребра или узла)
     # coordinates INTEGER, 0 если привязан к кораблю
+    cur.execute("DROP TABLE IF EXISTS consignment")
     cur.execute("""CREATE TABLE IF NOT EXISTS consignment(
     cargo_id INTEGER PRIMARY KEY AUTOINCREMENT,
     size INTEGER,
