@@ -37,6 +37,10 @@ class ship: #ship = корабль
         self.coordinates = coordinates
         self.cargo_type = cargo_type
         self.caravan_condition = caravan_condition
+    def create(self):
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute("insert into ship (ship_id, edge_position, edge_id, port_id, in_port, icebreaker_id, max_capacity, node_id, coordinates, cargo_type, caravan_condition) values ('{ship_id}', '{edge_position}', '{edge_id}', '{port_id}', '{in_port}', '{icebreaker_id}', '{max_capacity}, '{node_id}', '{coordinates}', '{cargo_type}', '{caravan_condition}')"
 
 class consignment: #consignment = партия груза
     def __init__(self, cargo_id = None, size = 1, node_destination_id = 1, ship_immediately = True, type_refer = 1, id_refer = 1, contracted = True):
