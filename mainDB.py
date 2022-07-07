@@ -30,10 +30,14 @@ class edges: #edges = ребра
                             WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
                             AND   TABLE_NAME   = 'edges';""")
             indexes.edges[edge_id] = self
-
+            result = cur.fetchall()
     def update(self):
         #обновление поля из таблицы
-
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute("""UPDATE edges
+            SET edge_id = ..., ice_condition = ..., length = ..., incident_nodes = ..., max_throughput = ..., tariff = ...;
+            """)
 class ship: #ship = корабль
     def __init__(self, ship_id = None, edge_position = 1, edge_id = -1, port_id = 1, in_port = True, icebreaker_id = 1, max_capacity = 1, node_id = 1, cargo_type = "", caravan_condition = True):
         self.ship_id = ship_id
