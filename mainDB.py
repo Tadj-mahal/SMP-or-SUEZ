@@ -7,8 +7,9 @@ class indexes:
     consig = dict()
     icebreak = dict()
     node = dict()
+
 class edges: #edges = ребра
-    def __init__(self, edge_type = "sea", edge_id = 0, ice_condition = 1, length = 1, incident_nodes = "*id_begin_node*_*id_end_node*", max_throughput = 1, tariff = 1500):
+    def __init__(self, edge_type = "sea", edge_id = None, ice_condition = 1, length = 1, incident_nodes = "*id_begin_node*_*id_end_node*", max_throughput = 1, tariff = 1500):
         self.edge_type = edge_type
         self.edge_id = edge_id
         self.ice_condition = ice_condition
@@ -19,11 +20,12 @@ class edges: #edges = ребра
 
     def create(self):
         #вытаскиваем поля из таблицы с помощью select и increment counter
+
     def update(self):
         #обновление поля из таблицы
-        
+
 class ship: #ship = корабль
-    def __init__(self, ship_id = -1, edge_position = 1,edge_id = -1, port_id = 1, in_port = True, icebreaker_id = 1, max_capacity = 1, node_id = 1, cargo_type = "", caravan_condition = True):
+    def __init__(self, ship_id = None, edge_position = 1,edge_id = -1, port_id = 1, in_port = True, icebreaker_id = 1, max_capacity = 1, node_id = 1, cargo_type = "", caravan_condition = True):
         self.ship_id = ship_id
         self.edge_position = edge_position
         self.edge_id = edge_id
@@ -35,9 +37,13 @@ class ship: #ship = корабль
         self.coordinates = coordinates
         self.cargo_type = cargo_type
         self.caravan_condition = caravan_condition
+    def create(self):
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute("insert into ship (ship_id, edge_position, edge_id, port_id, in_port, icebreaker_id, max_capacity, node_id, coordinates, cargo_type, caravan_condition) values ('{ship_id}', '{edge_position}', '{edge_id}', '{port_id}', '{in_port}', '{icebreaker_id}', '{max_capacity}, '{node_id}', '{coordinates}', '{cargo_type}', '{caravan_condition}')"
 
 class consignment: #consignment = партия груза
-    def __init__(self, cargo_id = -1, size = 1, node_destination_id = 1, ship_immediately = True, type_refer = 1, id_refer = 1, contracted = True):
+    def __init__(self, cargo_id = None, size = 1, node_destination_id = 1, ship_immediately = True, type_refer = 1, id_refer = 1, contracted = True):
         self.cargo_id = cargo_id
         self.size = size
         self.node_destination_id = node_destination_id
@@ -46,9 +52,13 @@ class consignment: #consignment = партия груза
         self.id_refer = id_refer
         self.coordinates = coordinates
         self.contracted = contracted
+    def create(self):
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute("insert into consignment (cargo_id, size, node_destination_id, ship_immediately, type_refer, id_refer, coordinates, contracted) values ('{cargo_id}', '{size}', '{node_destination_id}', '{ship_immediately}', '{type_refer}', '{id_refer}', '{coordinates}', '{contracted}')"
 
 class icebreaker: #icebreaker = ледокол
-    def __init__(self, icebreaker_id = 0, edge_position = 0, prepare_caravan = True, edge_id = 0, port_id = 0, node_destination_id = 1, speed = 40,shipsin_caravan = True):
+    def __init__(self, icebreaker_id = None, edge_position = 0, prepare_caravan = True, edge_id = 0, port_id = 0, node_destination_id = 1, speed = 40,shipsin_caravan = True):
         self.icebreaker_id = icebreaker_id
         self.edge_position = edge_position
         self.prepare_caravan = prepare_caravan
@@ -57,11 +67,19 @@ class icebreaker: #icebreaker = ледокол
         self.node_destination_id = node_destination_id
         self.speed = speed
         self.shipsin_caravan = shipsin_caravan
+    def create(self):
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute("insert into icebreaker (icebreaker_id, edge_position, prepare_caravan, edge_id, port_id, node_destination_id, speed, shipsin_caravan) values ('{icebreaker_id}', '{edge_position}', '{prepare_caravan}', '{edge_id}', '{node_destination_id}', '{speed}', '{shipsin_caravan}')"
 
 class node: #node = узел
-    def __init__(self, node_id = 0):
+    def __init__(self, node_id = None):
         self.coordinates = coordinates
         self.node_id = node_id
+    def create(self):
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute("insert into node (coordinates, node_id) values ('{coordinates}', '{node_id}')")
 
 import sqlite3 as sq
 
