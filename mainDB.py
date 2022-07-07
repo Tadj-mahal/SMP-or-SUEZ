@@ -1,10 +1,13 @@
 import sqlite3 as sq
 
 coordinates = "0.000000, 0.000000"
-
+class indexes:
+    ed = dict()
+    sh = dict()
+    #и т.д.
 class edges: #edges = ребра
-    def __init__(self):
-        self.edge_type = "sea"
+    def __init__(self, edge_type = "sea"):
+        self.edge_type = edge_type
         self.edge_id = 0
         self.ice_condition = 1
         self.length = 1
@@ -12,7 +15,9 @@ class edges: #edges = ребра
         self.max_throughput = 1
         self.tariff = 1500
     def create(self):
-        
+        #вытаскиваем поля из таблицы с помощью select и increment counter
+    def update(self):
+        #обновление поля из таблицы
 class ship: #ship = корабль
     def __init__(self):
         self.ship_id = -1
@@ -141,3 +146,6 @@ with sq.connect("Ships_Icebreakers.db") as con:
     node_id INTEGER PRIMARY KEY AUTOINCREMENT,
     coordinates TEXT
     )""")
+    SELECT * FROM edges WHERE
+    def full_info():
+        cur.execute(SELECT * FROM node)#вытащить все таблицы
