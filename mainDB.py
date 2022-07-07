@@ -1,75 +1,143 @@
 import sqlite3 as sq
 
 coordinates = "0.000000, 0.000000"
+
 class edges: #edges = ребра
     def __init__(self):
         self.edge_type = "sea"
+        self.edge_id = 0
+        self.ice_condition = 1
         self.length = 1
-        self.incident_nodes = 1
+        self.incident_nodes = "*id_begin_node*_*id_end_node*"
         self.max_throughput = 1
         self.tariff = 1500
-
+    def create(self):
+        
 class ship: #ship = корабль
     def __init__(self):
+        self.ship_id = -1
+        self.edge_position = 1
+        self.edge_id = -1
+        self.port_id = 1
+        self.in_port = True
+        self.icebreaker_id = 1
+        self.max_capacity = 1
+        self.node_id = 1
         self.coordinates = coordinates
-        self.list_cargo_type = ""
-        self.cargo_weight = 28000
+        self.cargo_type = ""
         self.caravan_condition = True
 
 class consignment: #consignment = партия груза
     def __init__(self):
-        self.cargo_type = "sea container 40ft"
+        self.cargo_id = -1
+        self.size = 1
+        self.node_destination_id = 1
+        self.ship_immediately = True
+        self.type_refer = 1
+        self.id_refer = 1
         self.coordinates = coordinates
         self.contracted = True
 
 class icebreaker: #icebreaker = ледокол
     def __init__(self):
-        self.speed = 30
-        self.transfer_fee = 1000
-        self.characteristics = ""
-        self.shipsin_caravan = ""
+        self.icebreaker_id = 1
+        self.edge_position = 1
+        self.prepare_caravan = True
+        self.edge_id = 1
+        self.port_id = 1
+        self.node_destination_id = 1
+        self.speed = 40
+        self.shipsin_caravan = True
 
 class node: #node = узел
     def __init__(self):
         self.coordinates = coordinates
+        self.node_id = -1
+
+import sqlite3 as sq
 
 with sq.connect("Ships_Icebreakers.db") as con:
     cur = con.cursor()
 
+    # добавь столбцы
+    # id ребра (INT PRIMARY KEY autoincrement)
+    # ледовая обстановка, 0 если не СМП (INT)
     cur.execute("DROP TABLE IF EXISTS edges")
     cur.execute("""CREATE TABLE IF NOT EXISTS edges(
+        edge_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ice_condition INTEGER,
         edge_type TEXT,
         length INTEGER,
-        incident_nodes INTEGER,
+        incident_nodes TEXT,
         max_throughput INTEGER,
-        tariff INTEGER
+        tariff TEXT
     )""")
 
+    # добавь столбцы
+    # id корабля (INT PRIMARY KEY autoincrement)
+    # положение на ребре (INT)
+    # id ребра, если плыпет, id порта, если стоит (INT)
+    # в порту или нет (BOOLEAN)
+    # id ледокола, если находится в караване (INT)
+    # максимальная вместимость (INT)
+    # id узела назначения (INT)
     cur.execute("DROP TABLE IF EXISTS ship")
     cur.execute("""CREATE TABLE IF NOT EXISTS ship(
-    coordinates TEXT NOT NULL DEFAULT "0.000000, 0.000000",
-    list_cargo_type TEXT,
-    cargo_weight INTEGER,
-    caravan_condition BLOB
+    ship_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    edge_position INTEGER,
+    edge_id INTEGER,
+    port_id INTEGER,
+    in_port BOOLEAN,
+    icebreaker_id INTEGER,
+    max_capacity INTEGER,
+    node_id INTEGER,
+    coordinates INTEGER NOT NULL DEFAULT "0.000000, 0.000000",
+    cargo_type TEXT,
+    caravan_condition BOOLEAN
     )""")
 
     cur.execute("DROP TABLE IF EXISTS consignment")
+    # добавь столбцы
+    # id груза (INT PRIMARY KEY autoincrement)
+    # объем (INT),
+    # узле назвачения (INT id узла, куда необходимо доставить груз),
+    # хочет ли груз отправиться немедленно (BOOLEAN),
+    # тип принадлежности (INT 1 - узел, 2 - ребро, 3 - кораблю)
+    # id принадлежности (INT id корабля, ребра или узла)
+    # coordinates INTEGER, 0 если привязан к кораблю
     cur.execute("""CREATE TABLE IF NOT EXISTS consignment(
-    cargo_type TEXT,
-    coordinates TEXT,
-    contracted BLOB
+    cargo_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    size INTEGER,
+    node_destination_id INTEGER,
+    ship_immediately BOOLEAN,
+    type_refer INTEGER,
+    id_refer INTEGER,
+    coordinates INTEGER,
+    contracted BOOLEAN
     )""")
-    #coordinates on edge
+
+    # добавь столбцы
+    # id ледокола (INT PRIMARY KEY autoincrement)
+    # положение на ребре (INT)
+    # собирает караван (BOOLEAN)
+    # id ребра, если плыпет, id порта, если стоит (INT)
+    # id узела назначения (INT)
     cur.execute("DROP TABLE IF EXISTS icebreaker")
     cur.execute("""CREATE TABLE IF NOT EXISTS icebreaker(
+    icebreaker_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    edge_position INTEGER,
+    prepare_caravan BOOLEAN,
+    edge_id INTEGER,
+    port_id INTEGER,
+    node_destination_id INTEGER,
     speed INTEGER,
-    transfer_fee INTEGER,
-    characteristics TEXT,
-    shipsin_caravan TEXT
+    shipsin_caravan BOOLEAN
     )""")
 
+    # добавь столбцы
+    # добавь PRIMARY KEY autoincrement id каждого узла
     cur.execute("DROP TABLE IF EXISTS node")
     cur.execute("""CREATE TABLE IF NOT EXISTS node(
+    node_id INTEGER PRIMARY KEY AUTOINCREMENT,
     coordinates TEXT
-
     )""")
