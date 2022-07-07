@@ -48,6 +48,10 @@ class consignment: #consignment = партия груза
         self.id_refer = id_refer
         self.coordinates = coordinates
         self.contracted = contracted
+    def create(self):
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute("insert into consignment ()"
 
 class icebreaker: #icebreaker = ледокол
     def __init__(self, icebreaker_id = 0, edge_position = 0, prepare_caravan = True, edge_id = 0, port_id = 0, node_destination_id = 1, speed = 40,shipsin_caravan = True):
