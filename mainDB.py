@@ -42,9 +42,12 @@ class ship: #ship = корабль
         self.cargo_type = cargo_type
         self.caravan_condition = caravan_condition
     def create(self):
+        #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute(f"insert into ship (ship_id, edge_position, edge_id, port_id, in_port, icebreaker_id, max_capacity, node_id, coordinates, cargo_type, caravan_condition) values ('{ship_id}', '{edge_position}', '{edge_id}', '{port_id}', '{in_port}', '{icebreaker_id}', '{max_capacity}, '{node_id}', '{coordinates}', '{cargo_type}', '{caravan_condition}')"
+    def update(self):
+        #обновление поля из таблицы
 
 class consignment: #consignment = партия груза
     def __init__(self, cargo_id = None, size = 1, node_destination_id = 1, ship_immediately = True, type_refer = 1, id_refer = 1, contracted = True):
@@ -57,9 +60,12 @@ class consignment: #consignment = партия груза
         self.coordinates = coordinates
         self.contracted = contracted
     def create(self):
+        #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute(f"insert into consignment (cargo_id, size, node_destination_id, ship_immediately, type_refer, id_refer, coordinates, contracted) values ('{cargo_id}', '{size}', '{node_destination_id}', '{ship_immediately}', '{type_refer}', '{id_refer}', '{coordinates}', '{contracted}')"
+    def update(self):
+        #обновление поля из таблицы
 
 class icebreaker: #icebreaker = ледокол
     def __init__(self, icebreaker_id = None, edge_position = 0, prepare_caravan = True, edge_id = 0, port_id = 0, node_destination_id = 1, speed = 40,shipsin_caravan = True):
@@ -72,19 +78,25 @@ class icebreaker: #icebreaker = ледокол
         self.speed = speed
         self.shipsin_caravan = shipsin_caravan
     def create(self):
+        #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute(f"insert into icebreaker (icebreaker_id, edge_position, prepare_caravan, edge_id, port_id, node_destination_id, speed, shipsin_caravan) values ('{icebreaker_id}', '{edge_position}', '{prepare_caravan}', '{edge_id}', '{node_destination_id}', '{speed}', '{shipsin_caravan}')"
+    def update(self):
+        #обновление поля из таблицы
 
 class node: #node = узел
     def __init__(self, node_id = None):
         self.coordinates = coordinates
         self.node_id = node_id
     def create(self):
+        #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute(f"insert into node (coordinates, node_id) values ('{coordinates}', '{node_id}')")
-
+    def update(self):
+        #обновление поля из таблицы
+        
 import sqlite3 as sq
 
 with sq.connect("Ships_Icebreakers.db") as con:
