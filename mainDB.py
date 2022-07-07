@@ -1,11 +1,12 @@
 import sqlite3 as sq
 
 coordinates = "0.000000, 0.000000"
+
 class indexes:
     edges = dict()
     ship = dict()
-    consig = dict()
-    icebreak = dict()
+    consignment = dict()
+    icebreaker = dict()
     node = dict()
 
 class edges: #edges = ребра
@@ -17,15 +18,20 @@ class edges: #edges = ребра
         self.incident_nodes = incident_nodes
         self.max_throughput = max_throughput
         self.tariff = tariff
-
+        if edge_id != None:
+            indexes.edges[edge_id] = self
     def create(self):
         #вытаскиваем поля из таблицы с помощью select и increment counter
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute(f"insert into edges (edge_type, edge_id, ice_condition, length, incident_nodes, max_throughput, tariff) values ('{edge_type}', '{edge_id}', '{ice_condition}', '{length}', '{incident_nodes}', '{max_throughput}', '{tariff}')")
+            indexes.edges[edge_id] = self
 
     def update(self):
         #обновление поля из таблицы
 
 class ship: #ship = корабль
-    def __init__(self, ship_id = None, edge_position = 1,edge_id = -1, port_id = 1, in_port = True, icebreaker_id = 1, max_capacity = 1, node_id = 1, cargo_type = "", caravan_condition = True):
+    def __init__(self, ship_id = None, edge_position = 1, edge_id = -1, port_id = 1, in_port = True, icebreaker_id = 1, max_capacity = 1, node_id = 1, cargo_type = "", caravan_condition = True):
         self.ship_id = ship_id
         self.edge_position = edge_position
         self.edge_id = edge_id
@@ -37,10 +43,16 @@ class ship: #ship = корабль
         self.coordinates = coordinates
         self.cargo_type = cargo_type
         self.caravan_condition = caravan_condition
+        if ship_id != None:
+            indexes.ship[ship_id] = self
     def create(self):
+        #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
-            cur.execute("insert into ship (ship_id, edge_position, edge_id, port_id, in_port, icebreaker_id, max_capacity, node_id, coordinates, cargo_type, caravan_condition) values ('{ship_id}', '{edge_position}', '{edge_id}', '{port_id}', '{in_port}', '{icebreaker_id}', '{max_capacity}, '{node_id}', '{coordinates}', '{cargo_type}', '{caravan_condition}')"
+            cur.execute(f"insert into ship (ship_id, edge_position, edge_id, port_id, in_port, icebreaker_id, max_capacity, node_id, coordinates, cargo_type, caravan_condition) values ('{ship_id}', '{edge_position}', '{edge_id}', '{port_id}', '{in_port}', '{icebreaker_id}', '{max_capacity}, '{node_id}', '{coordinates}', '{cargo_type}', '{caravan_condition}')")
+            indexes.ship[ship_id] = self
+    def update(self):
+        #обновление поля из таблицы
 
 class consignment: #consignment = партия груза
     def __init__(self, cargo_id = None, size = 1, node_destination_id = 1, ship_immediately = True, type_refer = 1, id_refer = 1, contracted = True):
@@ -52,10 +64,16 @@ class consignment: #consignment = партия груза
         self.id_refer = id_refer
         self.coordinates = coordinates
         self.contracted = contracted
+        if cargo_id != None:
+            indexes.consignment[cargo_id] = self
     def create(self):
+        #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
-            cur.execute("insert into consignment (cargo_id, size, node_destination_id, ship_immediately, type_refer, id_refer, coordinates, contracted) values ('{cargo_id}', '{size}', '{node_destination_id}', '{ship_immediately}', '{type_refer}', '{id_refer}', '{coordinates}', '{contracted}')"
+            cur.execute(f"insert into consignment (cargo_id, size, node_destination_id, ship_immediately, type_refer, id_refer, coordinates, contracted) values ('{cargo_id}', '{size}', '{node_destination_id}', '{ship_immediately}', '{type_refer}', '{id_refer}', '{coordinates}', '{contracted}')")
+            indexes.consignment[cargo_id] = self
+    def update(self):
+        #обновление поля из таблицы
 
 class icebreaker: #icebreaker = ледокол
     def __init__(self, icebreaker_id = None, edge_position = 0, prepare_caravan = True, edge_id = 0, port_id = 0, node_destination_id = 1, speed = 40,shipsin_caravan = True):
@@ -67,19 +85,31 @@ class icebreaker: #icebreaker = ледокол
         self.node_destination_id = node_destination_id
         self.speed = speed
         self.shipsin_caravan = shipsin_caravan
+        if icebreaker_id != None:
+            indexes.icebreaker[icebreaker_id] = self
     def create(self):
+        #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
-            cur.execute("insert into icebreaker (icebreaker_id, edge_position, prepare_caravan, edge_id, port_id, node_destination_id, speed, shipsin_caravan) values ('{icebreaker_id}', '{edge_position}', '{prepare_caravan}', '{edge_id}', '{node_destination_id}', '{speed}', '{shipsin_caravan}')"
+            cur.execute(f"insert into icebreaker (icebreaker_id, edge_position, prepare_caravan, edge_id, port_id, node_destination_id, speed, shipsin_caravan) values ('{icebreaker_id}', '{edge_position}', '{prepare_caravan}', '{edge_id}', '{node_destination_id}', '{speed}', '{shipsin_caravan}')")
+            indexes.icebreaker[icebreaker_id] = self
+    def update(self):
+        #обновление поля из таблицы
 
 class node: #node = узел
     def __init__(self, node_id = None):
         self.coordinates = coordinates
         self.node_id = node_id
+        if node_id != None:
+            indexes.node[node_id] = self
     def create(self):
+        #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
-            cur.execute("insert into node (coordinates, node_id) values ('{coordinates}', '{node_id}')")
+            cur.execute(f"insert into node (coordinates, node_id) values ('{coordinates}', '{node_id}')")
+            indexes.node[node_id] = self
+    def update(self):
+        #обновление поля из таблицы
 
 import sqlite3 as sq
 
@@ -92,7 +122,7 @@ with sq.connect("Ships_Icebreakers.db") as con:
     cur.execute("DROP TABLE IF EXISTS edges")
     cur.execute("""CREATE TABLE IF NOT EXISTS edges(
         edge_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        ice_condition INTEGER,
+        ice_condition INTEGER DEFAULT 0,
         edge_type TEXT,
         length INTEGER,
         incident_nodes TEXT,
@@ -123,7 +153,6 @@ with sq.connect("Ships_Icebreakers.db") as con:
     caravan_condition BOOLEAN
     )""")
 
-    cur.execute("DROP TABLE IF EXISTS consignment")
     # добавь столбцы
     # id груза (INT PRIMARY KEY autoincrement)
     # объем (INT),
@@ -132,6 +161,7 @@ with sq.connect("Ships_Icebreakers.db") as con:
     # тип принадлежности (INT 1 - узел, 2 - ребро, 3 - кораблю)
     # id принадлежности (INT id корабля, ребра или узла)
     # coordinates INTEGER, 0 если привязан к кораблю
+    cur.execute("DROP TABLE IF EXISTS consignment")
     cur.execute("""CREATE TABLE IF NOT EXISTS consignment(
     cargo_id INTEGER PRIMARY KEY AUTOINCREMENT,
     size INTEGER,
