@@ -4,8 +4,8 @@ coordinates = "0.000000, 0.000000"
 class indexes:
     edges = dict()
     ship = dict()
-    consig = dict()
-    icebreak = dict()
+    consignment = dict()
+    icebreaker = dict()
     node = dict()
 
 class edges: #edges = ребра
@@ -42,6 +42,8 @@ class ship: #ship = корабль
         self.coordinates = coordinates
         self.cargo_type = cargo_type
         self.caravan_condition = caravan_condition
+        if ship_id != None:
+            indexes.ship[ship_id] = self
     def create(self):
         #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
@@ -61,6 +63,8 @@ class consignment: #consignment = партия груза
         self.id_refer = id_refer
         self.coordinates = coordinates
         self.contracted = contracted
+        if cargo_id != None:
+            indexes.consignment[cargo_id] = self
     def create(self):
         #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
@@ -80,6 +84,8 @@ class icebreaker: #icebreaker = ледокол
         self.node_destination_id = node_destination_id
         self.speed = speed
         self.shipsin_caravan = shipsin_caravan
+        if icebreaker_id != None:
+            indexes.icebreaker[icebreaker_id] = self
     def create(self):
         #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
@@ -93,6 +99,8 @@ class node: #node = узел
     def __init__(self, node_id = None):
         self.coordinates = coordinates
         self.node_id = node_id
+        if node_id != None:
+            indexes.node [node_id] = self
     def create(self):
         #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
