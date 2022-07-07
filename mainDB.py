@@ -1,6 +1,7 @@
 import sqlite3 as sq
 
 coordinates = "0.000000, 0.000000"
+
 class indexes:
     edges = dict()
     ship = dict()
