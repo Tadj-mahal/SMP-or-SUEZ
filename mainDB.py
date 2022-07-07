@@ -54,6 +54,10 @@ class ship: #ship = корабль
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute("insert into ship (ship_id, edge_position, edge_id, port_id, in_port, icebreaker_id, max_capacity, node_id, coordinates, cargo_type, caravan_condition) values ('{ship_id}', '{edge_position}', '{edge_id}', '{port_id}', '{in_port}', '{icebreaker_id}', '{max_capacity}, '{node_id}', '{coordinates}', '{cargo_type}', '{caravan_condition}')")
+            cur.execute("""SELECT `AUTO_INCREMENT`
+                            FROM  INFORMATION_SCHEMA.TABLES
+                            WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
+                            AND   TABLE_NAME   = 'ship';""")
             indexes.ship[ship_id] = self
     def update(self):
         #обновление поля из таблицы
@@ -80,6 +84,10 @@ class consignment: #consignment = партия груза
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute("insert into consignment (cargo_id, size, node_destination_id, ship_immediately, type_refer, id_refer, coordinates, contracted) values ('{cargo_id}', '{size}', '{node_destination_id}', '{ship_immediately}', '{type_refer}', '{id_refer}', '{coordinates}', '{contracted}')")
+            cur.execute("""SELECT `AUTO_INCREMENT`
+                            FROM  INFORMATION_SCHEMA.TABLES
+                            WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
+                            AND   TABLE_NAME   = 'consignment';""")
             indexes.consignment[cargo_id] = self
     def update(self):
         #обновление поля из таблицы
@@ -106,6 +114,10 @@ class icebreaker: #icebreaker = ледокол
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute("insert into icebreaker (icebreaker_id, edge_position, prepare_caravan, edge_id, port_id, node_destination_id, speed, shipsin_caravan) values ('{icebreaker_id}', '{edge_position}', '{prepare_caravan}', '{edge_id}', '{node_destination_id}', '{speed}', '{shipsin_caravan}')")
+            cur.execute("""SELECT `AUTO_INCREMENT`
+                            FROM  INFORMATION_SCHEMA.TABLES
+                            WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
+                            AND   TABLE_NAME   = 'icebreaker';""")
             indexes.icebreaker[icebreaker_id] = self
     def update(self):
         #обновление поля из таблицы
@@ -126,6 +138,10 @@ class node: #node = узел
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute("insert into node (coordinates, node_id) values ('{coordinates}', '{node_id}')")
+            cur.execute("""SELECT `AUTO_INCREMENT`
+                            FROM  INFORMATION_SCHEMA.TABLES
+                            WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
+                            AND   TABLE_NAME   = 'node';""")
             indexes.node[node_id] = self
     def update(self):
         #обновление поля из таблицы
