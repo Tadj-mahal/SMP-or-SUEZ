@@ -202,6 +202,9 @@ with sq.connect("Ships_Icebreakers.db") as con:
     node_id INTEGER PRIMARY KEY AUTOINCREMENT,
     coordinates TEXT
     )""")
-    SELECT * FROM edges WHERE
     def full_info():
+        cur.execute(SELECT * FROM edges)
+        cur.execute(SELECT * FROM ship)
+        cur.execute(SELECT * FROM consignment)
+        cur.execute(SELECT * FROM icebreaker)
         cur.execute(SELECT * FROM node)#вытащить все таблицы
