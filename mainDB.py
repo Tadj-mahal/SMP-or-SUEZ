@@ -8,7 +8,7 @@ class indexes:
     icebreak = dict()
     node = dict()
 class edges: #edges = ребра
-    def __init__(self, edge_type = "sea", edge_id = 0, ice_condition = 1, length = 1, incident_nodes = "*id_begin_node*_*id_end_node*", max_throughput = 1, tariff = 1500):
+    def __init__(self, edge_type = "sea", edge_id = None, ice_condition = 1, length = 1, incident_nodes = "*id_begin_node*_*id_end_node*", max_throughput = 1, tariff = 1500):
         self.edge_type = edge_type
         self.edge_id = edge_id
         self.ice_condition = ice_condition
@@ -23,7 +23,7 @@ class edges: #edges = ребра
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute(f"insert into edges (edge_type, edge_id, ice_condition, length, incident_nodes, max_throughput, tariff) values ('{edge_type}', '{edge_id}', '{ice_condition}', '{length}', '{incident_nodes}', '{max_throughput}', '{tariff}')")
-            indexes.edges[id] = self
+            indexes.edges[edge_id] = self
     def update(self):
         #обновление поля из таблицы
 
