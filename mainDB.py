@@ -7,7 +7,6 @@ class indexes:
     consig = dict()
     icebreak = dict()
     node = dict()
-#JASFDKJASDLFJSADLKFJS
 class edges: #edges = ребра
     def __init__(self, edge_type = "sea", edge_id = 0, ice_condition = 1, length = 1, incident_nodes = "*id_begin_node*_*id_end_node*", max_throughput = 1, tariff = 1500):
         self.edge_type = edge_type
@@ -18,7 +17,6 @@ class edges: #edges = ребра
         self.max_throughput = max_throughput
         self.tariff = tariff
     def create(self):
-        #dsdfsfda
         #вытаскиваем поля из таблицы с помощью select и increment counter
     def update(self):
         #обновление поля из таблицы
