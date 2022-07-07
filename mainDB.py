@@ -17,11 +17,12 @@ class edges: #edges = ребра
         self.incident_nodes = incident_nodes
         self.max_throughput = max_throughput
         self.tariff = tariff
+
     def create(self):
-        #dsdfsfda
         #вытаскиваем поля из таблицы с помощью select и increment counter
     def update(self):
         #обновление поля из таблицы
+        
 class ship: #ship = корабль
     def __init__(self, ship_id = -1, edge_position = 1,edge_id = -1, port_id = 1, in_port = True, icebreaker_id = 1, max_capacity = 1, node_id = 1, cargo_type = "", caravan_condition = True):
         self.ship_id = ship_id
