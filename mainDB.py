@@ -7,7 +7,7 @@ class indexes:
     consig = dict()
     icebreak = dict()
     node = dict()
-    
+
 class edges: #edges = ребра
     def __init__(self, edge_type = "sea", edge_id = 0, ice_condition = 1, length = 1, incident_nodes = "*id_begin_node*_*id_end_node*", max_throughput = 1, tariff = 1500):
         self.edge_type = edge_type
@@ -48,20 +48,20 @@ class consignment: #consignment = партия груза
         self.contracted = contracted
 
 class icebreaker: #icebreaker = ледокол
-    def __init__(self):
-        self.icebreaker_id = 1
-        self.edge_position = 1
-        self.prepare_caravan = True
-        self.edge_id = 1
-        self.port_id = 1
-        self.node_destination_id = 1
-        self.speed = 40
-        self.shipsin_caravan = True
+    def __init__(self, icebreaker_id = 0, edge_position = 0, prepare_caravan = True, edge_id = 0, port_id = 0, node_destination_id = 1, speed = 40,shipsin_caravan = True):
+        self.icebreaker_id = icebreaker_id
+        self.edge_position = edge_position
+        self.prepare_caravan = prepare_caravan
+        self.edge_id = edge_id
+        self.port_id = port_id
+        self.node_destination_id = node_destination_id
+        self.speed = speed
+        self.shipsin_caravan = shipsin_caravan
 
 class node: #node = узел
-    def __init__(self):
+    def __init__(self, node_id = 0):
         self.coordinates = coordinates
-        self.node_id = -1
+        self.node_id = node_id
 
 import sqlite3 as sq
 
