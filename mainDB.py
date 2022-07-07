@@ -64,8 +64,7 @@ class ship: #ship = корабль
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute("""UPDATE ship
-            SET ship = ...
-            WHERE condition;""")
+            SET ship_id = ... """)
 
 class consignment: #consignment = партия груза
     def __init__(self, cargo_id = None, size = 1, node_destination_id = 1, ship_immediately = True, type_refer = 1, id_refer = 1, contracted = True):
@@ -94,8 +93,7 @@ class consignment: #consignment = партия груза
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute("""UPDATE consignment
-            SET cargo_id = ...
-            WHERE condition;""")
+            SET cargo_id = ... """)
 
 class icebreaker: #icebreaker = ледокол
     def __init__(self, icebreaker_id = None, edge_position = 0, prepare_caravan = True, edge_id = 0, port_id = 0, node_destination_id = 1, speed = 40,shipsin_caravan = True):
@@ -124,8 +122,7 @@ class icebreaker: #icebreaker = ледокол
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute("""UPDATE icebreaker
-            SET icebreaker_id = ...
-            WHERE condition;""")
+            SET icebreaker_id = ... """)
 
 class node: #node = узел
     def __init__(self, node_id = None):
@@ -148,8 +145,7 @@ class node: #node = узел
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute("""UPDATE node
-            SET node_id = ...
-            WHERE condition;""")
+            SET node_id = ... """)
 
 import sqlite3 as sq
 
