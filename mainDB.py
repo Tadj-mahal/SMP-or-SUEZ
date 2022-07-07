@@ -17,10 +17,14 @@ class edges: #edges = ребра
         self.incident_nodes = incident_nodes
         self.max_throughput = max_throughput
         self.tariff = tariff
-
+        if edge_id != None:
+            indexes.edges[edge_id] = self
     def create(self):
         #вытаскиваем поля из таблицы с помощью select и increment counter
-
+        with sq.connect("Ships_Icebreakers.db") as con:
+            cur = con.cursor()
+            cur.execute(f"insert into edges (edge_type, edge_id, ice_condition, length, incident_nodes, max_throughput, tariff) values ('{edge_type}', '{edge_id}', '{ice_condition}', '{length}', '{incident_nodes}', '{max_throughput}', '{tariff}')")
+            indexes.edges[edge_id] = self
     def update(self):
         #обновление поля из таблицы
 
