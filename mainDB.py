@@ -24,8 +24,8 @@ class edges: #edges = ребра
         #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
-            cur.execute(f"insert into edges (edge_type, edge_id, ice_condition, length, incident_nodes, max_throughput, tariff) values ('{edge_type}', '{edge_id}', '{ice_condition}', '{length}', '{incident_nodes}', '{max_throughput}', '{tariff}')")
-            cur.execute(f"""SELECT `AUTO_INCREMENT`
+            cur.execute("insert into edges (edge_type, edge_id, ice_condition, length, incident_nodes, max_throughput, tariff) values ('{edge_type}', '{edge_id}', '{ice_condition}', '{length}', '{incident_nodes}', '{max_throughput}', '{tariff}')")
+            cur.execute("""SELECT `AUTO_INCREMENT`
                             FROM  INFORMATION_SCHEMA.TABLES
                             WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
                             AND   TABLE_NAME   = 'edges';""")
