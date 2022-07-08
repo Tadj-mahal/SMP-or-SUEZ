@@ -64,7 +64,9 @@ class ship: #ship = корабль
                             FROM  INFORMATION_SCHEMA.TABLES
                             WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
                             AND   TABLE_NAME   = 'ship';""")
-            indexes.ship[ship_id] = self
+            result = cur.fetchall()
+            self.ship_id = result[0][0]
+            indexes.ship[result[0][0]] = self
     def update(self):
         #обновление поля из таблицы
         with sq.connect("Ships_Icebreakers.db") as con:
@@ -94,7 +96,9 @@ class consignment: #consignment = партия груза
                             FROM  INFORMATION_SCHEMA.TABLES
                             WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
                             AND   TABLE_NAME   = 'consignment';""")
-            indexes.consignment[cargo_id] = self
+            result = cur.fetchall()
+            self.cargo_id = result[0][0]
+            indexes.consignment[result[0][0]] = self
     def update(self):
         #обновление поля из таблицы
         with sq.connect("Ships_Icebreakers.db") as con:
@@ -124,7 +128,9 @@ class icebreaker: #icebreaker = ледокол
                             FROM  INFORMATION_SCHEMA.TABLES
                             WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
                             AND   TABLE_NAME   = 'icebreaker';""")
-            indexes.icebreaker[icebreaker_id] = self
+            result = cur.fetchall()
+            self.icebreaker_id = result[0][0]
+            indexes.icebreaker[result[0][0]] = self
     def update(self):
         #обновление поля из таблицы
         with sq.connect("Ships_Icebreakers.db") as con:
@@ -148,7 +154,9 @@ class node: #node = узел
                             FROM  INFORMATION_SCHEMA.TABLES
                             WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
                             AND   TABLE_NAME   = 'node';""")
-            indexes.node[node_id] = self
+            result = cur.fetchall()
+            self.node_id = result[0][0]
+            indexes.node[result[0][0]] = self
     def update(self):
         #обновление поля из таблицы
         with sq.connect("Ships_Icebreakers.db") as con:
