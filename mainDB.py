@@ -25,7 +25,7 @@ class edges: #edges = ребра
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
             cur.execute(f"insert into edges (edge_type, edge_id, ice_condition, length, incident_nodes, max_throughput, tariff) values ('{edge_type}', '{edge_id}', '{ice_condition}', '{length}', '{incident_nodes}', '{max_throughput}', '{tariff}')")
-            cur.execute(f"""SELECT `AUTO_INCREMENT`
+            cur.execute("""SELECT `AUTO_INCREMENT`
                             FROM  INFORMATION_SCHEMA.TABLES
                             WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
                             AND   TABLE_NAME   = 'edges';""")
@@ -59,7 +59,7 @@ class ship: #ship = корабль
         #вытаскиваем поля из таблицы с помощью select и increment counter
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
-            cur.execute("insert into ship (ship_id, edge_position, edge_id, port_id, in_port, icebreaker_id, max_capacity, node_id, coordinates, cargo_type, caravan_condition) values ('{ship_id}', '{edge_position}', '{edge_id}', '{port_id}', '{in_port}', '{icebreaker_id}', '{max_capacity}, '{node_id}', '{coordinates}', '{cargo_type}', '{caravan_condition}')")
+            cur.execute(f"insert into ship (ship_id, edge_position, edge_id, port_id, in_port, icebreaker_id, max_capacity, node_id, coordinates, cargo_type, caravan_condition) values ('{ship_id}', '{edge_position}', '{edge_id}', '{port_id}', '{in_port}', '{icebreaker_id}', '{max_capacity}, '{node_id}', '{coordinates}', '{cargo_type}', '{caravan_condition}')")
             cur.execute("""SELECT `AUTO_INCREMENT`
                             FROM  INFORMATION_SCHEMA.TABLES
                             WHERE TABLE_SCHEMA = 'Ships_Icebreakers.db'
@@ -69,8 +69,9 @@ class ship: #ship = корабль
         #обновление поля из таблицы
         with sq.connect("Ships_Icebreakers.db") as con:
             cur = con.cursor()
-            cur.execute("""UPDATE ship
-            SET ship_id = ... """)
+            cur.execute(f"""UPDATE ship
+            SET ship_id = {self.ship_id}, edge_position = {self.edge_position}, edge_id = {self.edge_id}, port_id = {self.port_id}, in_port = {self.in_port}, icebreaker_id = {self.icebreaker_id}, max_capacity = {self.max_capacity}, node_id = {self.node_id}, coordinates = {self.coordinates}, cargo_type = {self.cargo_type}, caravan_condition = {self.caravan_condition}
+            """)
 
 class consignment: #consignment = партия груза
     def __init__(self, cargo_id = None, size = 1, node_destination_id = 1, ship_immediately = True, type_refer = 1, id_refer = 1, contracted = True):
